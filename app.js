@@ -18,7 +18,7 @@ export const client = createClient({
   },
 });
 
-client.on('error', err => console.log('Redis Client Error', err));
+client.on("error", (err) => console.log("Redis Client Error", err));
 
 await client.connect();
 
@@ -36,6 +36,28 @@ DatabaseConnect();
 // API Route
 app.use("/api/user/", userRouter);
 app.use("/api/todo/", todoRouter);
+app.get("/api", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Server test / route running successfully",
+    data: [
+      {
+        id: 1,
+        name: "User 1",
+        age: 23,
+        mobile_no: "**********",
+        country_code: "+91",
+      },
+      {
+        id: 2,
+        name: "User 2",
+        age: 21,
+        mobile_no: "********",
+        country_code: "+8",
+      },
+    ],
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server run on ${PORT}`);
